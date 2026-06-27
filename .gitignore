@@ -5,6 +5,9 @@
 **/.env
 **/.env.*
 
+# Allow example environment files
+!**/.env.example
+
 # Angular
 .angular/
 dist/
