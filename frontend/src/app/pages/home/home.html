@@ -1,0 +1,341 @@
+<!-- Preloader -->
+<div class="preloader" [class.hidden]="preloaderHidden">
+  <div class="preloader-inner">
+    <div class="preloader-ornament"></div>
+    <img src="assets/images/logo.jpg" alt="Roshni Creation" class="preloader-logo">
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" [class.scrolled]="navScrolled">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#collections" class="nav-link">Collections</a>
+      <a href="#craftsmanship" class="nav-link">Our Craft</a>
+    </div>
+    <a href="#" class="nav-logo">
+      <img src="assets/images/logo.jpg" alt="Roshni Creation" class="logo-image">
+    </a>
+    <div class="nav-right">
+      <a href="#manufacturing" class="nav-link">Manufacturing</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" [class.active]="mobileNavOpen" (click)="mobileNavOpen = !mobileNavOpen">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav-overlay" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-content">
+    <a href="#home"          class="mobile-nav-link" (click)="mobileNavOpen = false">Home</a>
+    <a href="#collections"   class="mobile-nav-link" (click)="mobileNavOpen = false">Collections</a>
+    <a href="#craftsmanship" class="mobile-nav-link" (click)="mobileNavOpen = false">Our Craft</a>
+    <a href="#manufacturing" class="mobile-nav-link" (click)="mobileNavOpen = false">Manufacturing</a>
+    <a href="#contact"       class="mobile-nav-link" (click)="mobileNavOpen = false">Contact</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <div class="hero-bg-slider">
+    <div *ngFor="let slide of slides; let i = index"
+         class="hero-slide"
+         [class.active]="i === currentSlide"
+         [style.background-image]="'url(' + slide + ')'">
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">The Art of <br>Ethnic Elegance</h1>
+    <p class="hero-description">Bespoke manufacturing for the modern connoisseur of traditional craft.</p>
+    <div class="hero-cta">
+      <a href="#collections" class="btn btn-primary">View Masterpieces</a>
+      <a href="#craftsmanship" class="btn btn-outline">Our Process</a>
+    </div>
+  </div>
+</section>
+
+<!-- Collections -->
+<section id="collections" class="collections section">
+  <div class="container">
+    <div class="section-header center">
+      <span class="section-cursive">Curated Visions</span>
+      <h2 class="section-title">Our Collections</h2>
+    </div>
+    <div class="collection-filter">
+      <button *ngFor="let f of filters"
+              class="filter-btn"
+              [class.active]="activeFilter === f.key"
+              (click)="setFilter(f.key)">
+        {{ f.label }}
+      </button>
+    </div>
+    <div class="collection-grid">
+      <div *ngFor="let p of products"
+           class="collection-card"
+           [class.hide]="!isVisible(p)"
+           [class.featured]="p.featured">
+        <div class="card-image-wrapper">
+          <img [src]="'http://localhost:3000/uploads/products/' + p.image" [alt]="p.title" class="card-image" loading="lazy">
+          <div class="card-overlay">
+            <span class="card-tag">
+              {{ p.tag }}
+            </span>
+            <span
+              class="featured-badge"
+              *ngIf="p.featured">
+
+              ★ Featured
+
+            </span>
+            <button class="card-view-btn" (click)="openLightbox(p)">View Details</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">{{ p.title }}</h3>
+          <p class="card-description">{{ p.description }}</p>
+          <span class="card-category">{{ p.category | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-content">
+      <span>✦ Handcrafted Elegance</span><span>✦ Premium Fabrics</span>
+      <span>✦ Timeless Designs</span><span>✦ Made in India</span>
+      <span>✦ B2B Wholesale</span><span>✦ Custom Manufacturing</span>
+      <span>✦ Handcrafted Elegance</span><span>✦ Premium Fabrics</span>
+      <span>✦ Timeless Designs</span><span>✦ Made in India</span>
+      <span>✦ B2B Wholesale</span><span>✦ Custom Manufacturing</span>
+    </div>
+  </div>
+</div>
+
+<!-- Craftsmanship -->
+<section id="craftsmanship" class="craftsmanship section">
+  <div class="container">
+    <div class="craft-grid">
+      <div class="craft-content-col">
+        <span class="section-cursive">Behind the Seams</span>
+        <h2 class="section-title">The Manufacturing<br>Process</h2>
+        <div class="section-divider"></div>
+        <p class="craft-text">From sketch to stitch, every garment undergoes a meticulous creation process.</p>
+        <div class="craft-steps">
+          <div *ngFor="let step of craftSteps" class="craft-step">
+            <div class="step-icon"><span class="material-symbols-outlined">{{ step.icon }}</span></div>
+            <div class="step-content">
+              <h4>{{ step.title }}</h4>
+              <p>{{ step.text }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="craft-image-col">
+        <div class="craft-image-stack">
+          <div class="craft-img-wrapper img-1"><img src="assets/images/product8.jpg" alt="" class="craft-img" loading="lazy"></div>
+          <div class="craft-img-wrapper img-2"><img src="assets/images/product9.jpg" alt="" class="craft-img" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About / Stats -->
+<section id="about" class="about section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-col">
+        <div class="about-image-wrapper">
+          <img src="assets/images/product7.jpg" alt="" class="about-image" loading="lazy">
+          <div class="about-image-border"></div>
+        </div>
+      </div>
+      <div class="about-content-col">
+        <span class="section-cursive">Our Legacy</span>
+        <h2 class="section-title">A Legacy of<br><em>Fine Craftsmanship</em></h2>
+        <div class="section-divider"></div>
+        <p class="about-text">Rooted in the rich textile heritage of India, Roshni Creation has been a trusted name in ethnic wear manufacturing.</p>
+        <div class="about-stats">
+          <div *ngFor="let stat of stats" class="stat-item">
+            <span class="stat-number">{{ stat.current }}</span><span class="stat-plus">+</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="manufacturing" class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-texture"></div>
+      <div class="cta-content">
+        <span class="section-cursive">Global Network</span>
+        <h2 class="cta-title">Partner With Us</h2>
+        <p class="cta-description">Join our global network of boutique retailers and luxury labels.</p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">Wholesale Inquiry</a>
+          <a href="#contact" class="btn btn-outline">Custom Manufacturing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials section">
+  <div class="container">
+    <div class="section-header center">
+      <span class="section-cursive">Trusted Partners</span>
+      <h2 class="section-title">Words from Our <em>Partners</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div *ngFor="let t of testimonials" class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">{{ t.text }}</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">{{ t.initial }}</div>
+          <div>
+            <h5 class="author-name">{{ t.name }}</h5>
+            <span class="author-role">{{ t.role }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info-col">
+        <span class="section-cursive">Reach Out</span>
+        <h2 class="section-title">Let's Create<br><em>Together</em></h2>
+        <div class="section-divider"></div>
+        <p class="contact-description">Interested in our collections or looking for custom manufacturing?</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon"><span class="material-symbols-outlined">call</span></div>
+            <div><h5>Phone</h5><p>+91 7499720096</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><span class="material-symbols-outlined">location_on</span></div>
+            <div><h5>Address</h5><p>Ulhasnagar, Maharashtra, India</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-col">
+        <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmitInquiry()">
+          <div class="form-group">
+            <input type="text" class="form-input" placeholder="Your Name" formControlName="name" required>
+            <label class="form-label">Your Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-input" placeholder="Email Address" formControlName="email">
+            <label class="form-label">Email Address</label>
+          </div>
+          <div class="form-group">
+            <input type="tel" class="form-input" placeholder="Phone Number" formControlName="phone" required>
+            <label class="form-label">Phone Number</label>
+          </div>
+          <div class="form-group">
+            <select class="form-input form-select" formControlName="interest" required>
+              <option value="" disabled>I'm interested in...</option>
+              <option value="wholesale">Wholesale Orders</option>
+              <option value="custom">Custom Manufacturing</option>
+              <option value="retail">Retail Partnership</option>
+              <option value="other">Other</option>
+            </select>
+            <label class="form-label">Interest</label>
+          </div>
+          <div class="form-group">
+            <textarea class="form-input form-textarea" placeholder="Your Message" rows="4" formControlName="message"></textarea>
+            <label class="form-label">Your Message</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" [disabled]="formSubmitting">
+            <span>{{ formSubmitting ? 'Sending...' : 'Send Inquiry' }}</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="assets/images/logo.jpg" alt="Roshni Creation" class="footer-logo-img">
+        <p class="footer-description">Premium ethnic wear manufacturer. B2B &amp; Wholesale.</p>
+      </div>
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Quick Links</h5>
+        <a href="#home" class="footer-link">Home</a>
+        <a href="#collections" class="footer-link">Collections</a>
+        <a href="#craftsmanship" class="footer-link">Our Craft</a>
+        <a href="#manufacturing" class="footer-link">Manufacturing</a>
+        <a href="#contact" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Collections</h5>
+        <a href="#collections" class="footer-link">Palazzo Sets</a>
+        <a href="#collections" class="footer-link">Salwar Suits</a>
+        <a href="#collections" class="footer-link">Anarkali Suits</a>
+      </div>
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Connect</h5>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Facebook</a>
+        <a href="#" class="footer-link">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Roshni Creation. Artisanal Excellence.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" [class.active]="lightboxOpen" (click)="closeLightbox()">
+  <button class="lightbox-close" (click)="closeLightbox()">&times;</button>
+  <div class="lightbox-content" (click)="$event.stopPropagation()" *ngIf="lightboxProduct">
+    <img
+[src]="'http://localhost:3000/uploads/products/' + lightboxProduct.image"
+[alt]="lightboxProduct.title"
+class="lightbox-image">
+    <div class="lightbox-info">
+      <h3 class="lightbox-title">{{ lightboxProduct.title }}</h3>
+      <p class="lightbox-description">{{ lightboxProduct.description }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/917499720096?text=Hello%2C%20I'm%20interested%20in%20your%20Catalogue"
+   target="_blank" rel="noopener noreferrer" class="whatsapp-float">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="whatsapp-tooltip">Chat with us</span>
+</a>
+
+<!-- Toast -->
+<div *ngIf="toastVisible"
+     class="form-toast"
+     [style.background]="toastType === 'success' ? '#e9c349' : 'rgba(255, 180, 171, 0.15)'"
+     [style.color]="toastType === 'success' ? '#181020' : '#ecddf5'">
+  {{ toastMessage }}
+</div>

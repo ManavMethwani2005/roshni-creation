@@ -1,0 +1,231 @@
+<div class="products-page">
+
+  <!-- ===== TOPBAR ===== -->
+  <!-- ✦ FIX: removed 3 debug <h2> lines that showed Loading/Products/Filtered counts on screen -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="assets/images/logo.jpg" alt="Roshni Creation" class="topbar-logo">
+      <div>
+        <h1>Product Management</h1>
+        <p>Add, edit and manage your homepage products</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="back-btn" routerLink="/admin/dashboard">
+        ← Back to Dashboard
+      </button>
+      <button class="add-btn" (click)="openAddForm()" *ngIf="!showForm">
+        + Add Product
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== STATS ===== -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <span class="stat-label">Total Products</span>
+      <span class="stat-value">{{ products.length }}</span>
+    </div>
+    <div class="stat-card featured-card">
+      <span class="stat-label">Featured</span>
+      <span class="stat-value">{{ featuredCount }}</span>
+    </div>
+  </div>
+
+  <!-- ===== ADD / EDIT FORM ===== -->
+  <div class="form-section" id="product-form" *ngIf="showForm">
+
+    <div class="form-card">
+
+      <div class="form-header">
+        <h2>{{ formTitle }}</h2>
+        <button class="close-form-btn" (click)="closeForm()">✕</button>
+      </div>
+
+      <div class="form-body">
+
+        <!-- Left: Fields -->
+        <div class="form-fields">
+
+          <div class="field-group">
+            <label class="field-label">Product Title *</label>
+            <input
+              class="field-input"
+              type="text"
+              placeholder="e.g. Regal Magenta Palazzo Set"
+              [(ngModel)]="form.title"
+              maxlength="80">
+            <span class="char-count">{{ form.title.length }}/80</span>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Description *</label>
+            <textarea
+              class="field-input field-textarea"
+              placeholder="e.g. Embroidered crop top with flowing palazzo pants and dupatta"
+              [(ngModel)]="form.description"
+              rows="3"
+              maxlength="200">
+            </textarea>
+            <span class="char-count">{{ form.description.length }}/200</span>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Category *</label>
+              <select class="field-input field-select" [(ngModel)]="form.category">
+                <option value="" disabled>Select category...</option>
+                <option *ngFor="let cat of categories" [value]="cat.value">
+                  {{ cat.label }}
+                </option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Badge Tag</label>
+              <select class="field-input field-select" [(ngModel)]="form.tag">
+                <option *ngFor="let t of tagOptions" [value]="t">{{ t }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="featured-toggle">
+              <input type="checkbox" [(ngModel)]="form.featured">
+              <span class="toggle-label">
+                <strong>Mark as Featured</strong>
+                <small>Featured products appear larger in the collections grid</small>
+              </span>
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Right: Image Upload -->
+        <div class="form-image-col">
+          <label class="field-label">Product Image {{ formMode === 'add' ? '*' : '(leave empty to keep current)' }}</label>
+
+          <!-- Preview -->
+          <div class="image-upload-area" *ngIf="imagePreviewUrl">
+            <img [src]="imagePreviewUrl" alt="Preview" class="image-preview">
+            <button class="remove-image-btn" (click)="removeImage()" type="button">
+              ✕ Remove
+            </button>
+          </div>
+
+          <!-- Drop zone -->
+          <label class="image-dropzone" *ngIf="!imagePreviewUrl">
+            <input
+              type="file"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              style="display:none">
+            <div class="dropzone-inner">
+              <span class="dropzone-icon">📷</span>
+              <span class="dropzone-text">Click to upload image</span>
+              <span class="dropzone-hint">JPG, PNG, WEBP — max 10MB</span>
+            </div>
+          </label>
+
+          <!-- Change image button when editing and preview shown -->
+          <label class="change-image-btn" *ngIf="imagePreviewUrl && formMode === 'edit' && !selectedFile">
+            <input
+              type="file"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              style="display:none">
+            📷 Change Image
+          </label>
+
+        </div>
+
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button class="cancel-btn" (click)="closeForm()" [disabled]="submitting">
+          Cancel
+        </button>
+        <button class="submit-btn" (click)="submitForm()" [disabled]="submitting">
+          <span *ngIf="!submitting">{{ formMode === 'add' ? '+ Add Product' : '✓ Save Changes' }}</span>
+          <span *ngIf="submitting">{{ formMode === 'add' ? 'Adding...' : 'Saving...' }}</span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ===== FILTER ===== -->
+  <div class="filter-row" *ngIf="!loading && products.length > 0">
+    <button
+      class="filter-btn"
+      [class.active]="filterCategory === 'all'"
+      (click)="filterCategory = 'all'">
+      All ({{ products.length }})
+    </button>
+    <button
+      *ngFor="let cat of categories"
+      class="filter-btn"
+      [class.active]="filterCategory === cat.value"
+      (click)="filterCategory = cat.value">
+      {{ cat.label }}
+    </button>
+  </div>
+
+  <!-- ===== LOADING ===== -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading products...</p>
+  </div>
+
+  <!-- ===== EMPTY ===== -->
+  <div *ngIf="!loading && products.length === 0" class="empty-state">
+    <p>🛍️ No products yet.</p>
+    <button class="add-btn" (click)="openAddForm()">+ Add Your First Product</button>
+  </div>
+
+  <!-- ===== PRODUCT GRID ===== -->
+  <div class="products-grid" *ngIf="!loading && filteredProducts.length > 0">
+
+    <div class="product-card" *ngFor="let p of filteredProducts">
+
+      <!-- Image -->
+      <div class="product-image-wrap">
+        <img [src]="imageUrl(p)" [alt]="p.title" class="product-image" loading="lazy">
+        <span class="product-tag">{{ p.tag }}</span>
+        <span class="featured-badge" *ngIf="p.featured">★ Featured</span>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info">
+        <h3 class="product-title">{{ p.title }}</h3>
+        <p class="product-desc">{{ p.description }}</p>
+        <span class="product-category">{{ p.category }}</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="product-actions">
+        <button class="edit-btn" (click)="openEditForm(p)">
+          ✏️ Edit
+        </button>
+        <button class="delete-btn" (click)="deleteProduct(p)">
+          🗑️ Delete
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- No results for filter -->
+  <div *ngIf="!loading && products.length > 0 && filteredProducts.length === 0" class="empty-state">
+    <p>No products in this category.</p>
+  </div>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" [class.visible]="toastVisible" [class.error]="toastType === 'error'">
+  {{ toastMessage }}
+</div>

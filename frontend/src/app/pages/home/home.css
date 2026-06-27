@@ -1,0 +1,18 @@
+.form-toast {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9999;
+  padding: 16px 28px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(18, 11, 26, 0.5);
+  animation: formToastIn 0.3s ease forwards;
+}
+@keyframes formToastIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+

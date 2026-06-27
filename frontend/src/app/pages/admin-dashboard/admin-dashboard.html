@@ -1,0 +1,160 @@
+<div class="dashboard" ngSkipHydration>
+
+  <div class="topbar">
+
+  <div>
+    <h1>Roshni Creation Admin</h1>
+    <p>Manage customer inquiries</p>
+  </div>
+
+  <div class="topbar-actions">
+
+    <button
+      class="products-btn"
+      routerLink="/admin/products">
+
+      Products
+
+    </button>
+
+    <button
+      class="logout-btn"
+      (click)="logout()">
+
+      Logout
+
+    </button>
+
+  </div>
+
+</div>
+
+  <div class="stats-row">
+
+    <div class="stats-card">
+      <h3>Total</h3>
+      <span>{{ inquiries.length }}</span>
+    </div>
+
+    <div class="stats-card unread-card">
+      <h3>Unread</h3>
+      <span>{{ unreadCount }}</span>
+    </div>
+
+    <div class="stats-card read-card">
+      <h3>Read</h3>
+      <span>{{ readCount }}</span>
+    </div>
+
+  </div>
+
+  <div class="search-box">
+    <input
+      type="text"
+      placeholder="Search by name or email..."
+      [(ngModel)]="searchTerm">
+  </div>
+
+  <div class="refresh-info">
+    Auto refresh every 10 seconds
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading inquiries...
+  </div>
+
+  <div
+    class="empty-state"
+    *ngIf="!loading && filteredInquiries.length === 0">
+
+    No inquiries found.
+
+  </div>
+
+  <div
+    class="table-wrapper"
+    *ngIf="!loading && filteredInquiries.length > 0">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Interest</th>
+          <th>Message</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let inquiry of filteredInquiries; let i = index">
+
+          <td>{{ i + 1 }}</td>
+
+          <td>{{ inquiry.name }}</td>
+
+          <td>{{ inquiry.email }}</td>
+
+          <td>
+            <a href="tel:{{ inquiry.phone }}">
+              {{ inquiry.phone }}
+            </a>
+          </td>
+
+          <td>{{ inquiry.interest }}</td>
+
+          <td class="message-cell">
+            {{ inquiry.message }}
+          </td>
+
+          <td>
+            {{ inquiry.createdAt | date:'dd MMM yyyy' }}
+            <br>
+            <small>
+              {{ inquiry.createdAt | date:'hh:mm a' }}
+            </small>
+          </td>
+
+          <td>
+            <span
+              class="status"
+              [class.read]="inquiry.isRead"
+              [class.unread]="!inquiry.isRead">
+
+              {{ inquiry.isRead ? 'Read' : 'Unread' }}
+
+            </span>
+          </td>
+
+          <td>
+
+            <button
+              class="read-btn"
+              *ngIf="!inquiry.isRead"
+              (click)="markRead(inquiry._id)">
+              Mark Read
+            </button>
+
+            <button
+              class="delete-btn"
+              (click)="deleteInquiry(inquiry._id)">
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
