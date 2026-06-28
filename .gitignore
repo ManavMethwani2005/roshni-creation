@@ -25,5 +25,5 @@ Thumbs.db
 # Uploaded product images
 backend/uploads/products/
 
-# Frontend images
-frontend/src/assets/images/
+# # Frontend images
+# frontend/src/assets/images/
