@@ -81,7 +81,7 @@
            [class.hide]="!isVisible(p)"
            [class.featured]="p.featured">
         <div class="card-image-wrapper">
-          <img [src]="'https://roshni-creation.onrender.com/uploads/products/' + p.image" [alt]="p.title" class="card-image" loading="lazy">
+          <img [src]="p.image || 'assets/images/product1.jpg'" [alt]="p.title" class="card-image" loading="lazy">
           <div class="card-overlay">
             <span class="card-tag">
               {{ p.tag }}

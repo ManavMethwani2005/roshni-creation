@@ -86,10 +86,12 @@ export class AdminProductsComponent implements OnInit {
     return this.formMode === 'add' ? 'Add New Product' : 'Edit Product';
   }
 
-  imageUrl(product: Product): string {
-    if (!product.image) return 'assets/images/product1.jpg';
-    return `https://roshni-creation.onrender.com/uploads/products/${product.image}`;
-  }
+ imageUrl(product: Product): string {
+  if (!product.image) return 'assets/images/product1.jpg';
+  // Cloudinary returns full URL directly
+  if (product.image.startsWith('http')) return product.image;
+  return `https://roshni-creation.onrender.com/uploads/products/${product.image}`;
+}
 
   // ── Load ────────────────────────────────────────────────────────
   loadProducts(): void {
