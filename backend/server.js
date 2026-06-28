@@ -18,7 +18,12 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:4200',
+    'https://roshni-creation-theta.vercel.app'
+  ]
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
