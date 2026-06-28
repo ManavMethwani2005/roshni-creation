@@ -88,7 +88,7 @@ export class AdminProductsComponent implements OnInit {
 
   imageUrl(product: Product): string {
     if (!product.image) return 'assets/images/product1.jpg';
-    return `http://localhost:3000/uploads/products/${product.image}`;
+    return `https://roshni-creation.onrender.com/uploads/products/${product.image}`;
   }
 
   // ── Load ────────────────────────────────────────────────────────

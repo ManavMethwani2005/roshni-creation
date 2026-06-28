@@ -81,7 +81,7 @@
            [class.hide]="!isVisible(p)"
            [class.featured]="p.featured">
         <div class="card-image-wrapper">
-          <img [src]="'http://localhost:3000/uploads/products/' + p.image" [alt]="p.title" class="card-image" loading="lazy">
+          <img [src]="'https://roshni-creation.onrender.com/uploads/products/' + p.image" [alt]="p.title" class="card-image" loading="lazy">
           <div class="card-overlay">
             <span class="card-tag">
               {{ p.tag }}
@@ -313,7 +313,7 @@
   <button class="lightbox-close" (click)="closeLightbox()">&times;</button>
   <div class="lightbox-content" (click)="$event.stopPropagation()" *ngIf="lightboxProduct">
     <img
-[src]="'http://localhost:3000/uploads/products/' + lightboxProduct.image"
+[src]="'https://roshni-creation.onrender.com/uploads/products/' + lightboxProduct.image"
 [alt]="lightboxProduct.title"
 class="lightbox-image">
     <div class="lightbox-info">

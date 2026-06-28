@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/admin';
+  private apiUrl = 'https://roshni-creation.onrender.com/api/admin';
   private TOKEN_KEY = 'rc_admin_token';
 
   constructor(private http: HttpClient) {}

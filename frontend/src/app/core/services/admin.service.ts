@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 @Injectable({ providedIn: 'root' })
 export class AdminService {
 
-  private apiUrl = 'http://localhost:3000/api/admin';
+  private apiUrl = 'https://roshni-creation.onrender.com/api/admin';
 
   constructor(
     private http: HttpClient,

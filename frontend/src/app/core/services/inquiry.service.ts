@@ -12,7 +12,7 @@ export interface InquiryForm {
 
 @Injectable({ providedIn: 'root' })
 export class InquiryService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://roshni-creation.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 
