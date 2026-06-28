@@ -107,7 +107,7 @@
             </a>
           </td>
 
-          <td>{{ inquiry.interest }}</td>
+          <td>{{ inquiry.interest === 'wholesale' ? 'Wholesale Orders' : inquiry.interest === 'custom' ? 'Custom Manufacturing' : inquiry.interest === 'retail' ? 'Retail Partnership' : 'Other' }}</td>
 
           <td class="message-cell">
             {{ inquiry.message }}
