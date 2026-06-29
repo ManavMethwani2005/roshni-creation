@@ -1,4 +1,9 @@
 # 🌸 Roshni Creation
+![Angular](https://img.shields.io/badge/Angular-16-red?style=for-the-badge&logo=angular)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green?style=for-the-badge&logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?style=for-the-badge&logo=mongodb)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-Image%20Storage-blue?style=for-the-badge&logo=cloudinary)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?style=for-the-badge&logo=bootstrap)
 
 A full-stack business website built using the MEAN stack, designed for managing products and customer inquiries. The application features a responsive user interface, secure admin dashboard, cloud-based image storage, and live deployment.
 
