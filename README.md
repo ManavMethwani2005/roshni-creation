@@ -92,14 +92,32 @@ ng serve
 
 ## 📸 Screenshots
 
-(Add screenshots here)
+### 🏠 Home Page
+![Home](screenshots/Home.png)
 
-- Home Page
-- Product Listing
-- Product Details
-- Admin Dashboard
-- Add Product
-- Inquiry Form
+### 📦 Products
+![Products](screenshots/Products.png)
+
+### 📄 Product Details
+![Product Details](screenshots/Product-details.png)
+
+### 📝 Inquiry Form
+![Inquiry](screenshots/inquiry.png)
+
+### 🔐 Admin Login
+![Admin Login](screenshots/admin-login.png)
+
+### 📊 Admin Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### ➕ Add Product
+![Add Product](screenshots/add-product.png)
+
+### ⚙️ Process
+![Process](screenshots/Process.png)
+
+### ✅ Products Uploaded
+![Products Uploaded](screenshots/products-uploaded.png)
 
 ---
 
